@@ -72,7 +72,8 @@ FEATURE (LIST)
 
 ## Screenshots 📸
 
-*(Add your screenshots here)*
+| ![Loading](screenshots/screenshot_1.png) | ![List](screenshots/screenshot_2.png) | ![Favorites](screenshots/screenshot_3.png) |
+
 
 ---
 
