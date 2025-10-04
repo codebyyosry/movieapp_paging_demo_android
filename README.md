@@ -1,94 +1,99 @@
-MovieDemo App 🎬 | Offline-First Movie Browser
-A modern, offline-first Android application designed to demonstrate best practices using Jetpack Compose and Clean Architecture. This app fetches and displays popular movies from a REST API, providing a seamless user experience with powerful features like paging, local caching, and persistent favorites.
+# MovieDemo Android App 🎬
 
-✨ Features
-MovieDemo is built with a strong focus on performance and maintainability, incorporating the following key features:
+A modern Android app demonstrating best practices in **Jetpack Compose**, **Clean Architecture**, and **offline-first design**. The app fetches and displays popular movies using a **REST API** while supporting **paging, favorites, and offline caching**.
 
-Offline-First Data Flow: Guarantees data availability by using a Room Database as the Single Source of Truth (SSOT).
+---
 
-Infinite Scrolling: Efficiently loads large datasets using Paging 3 for smooth, lazy-loaded infinite scrolling.
+## Features ✨
 
-Favorites Persistence: Users can toggle favorite movies, with status updates persisted locally in Room and immediately reflected in the UI.
+- Display movies in a **grid layout** with **image, title, rating, and favorite toggle**
+- **Offline-first** using **Room Database** as a single source of truth (SSOT)
+- **Paging 3** for efficient data loading with support for **infinite scrolling**
+- **Skeleton loading UI** for better user experience while fetching data
+- **Favorite movies** persisted locally in Room
+- **Navigation** using Jetpack Navigation Compose
+- Clean and modular **feature-based architecture**
+- **MVI pattern** using **ViewModel + UI Contract (Event, State, Effect)**
+- **Custom wrapper Resource** for handling **Loading / Success / Error** states
+- **Retrofit** for API calls
+- API key and base URL managed via **BuildConfig**
 
-Modern UI: A beautiful and fully responsive user interface built entirely with Jetpack Compose.
+---
 
-Enhanced UX: Includes a skeleton loading UI for better perceived performance while data is being fetched.
+## Architecture 🏗️
 
-Robust State Management: Uses the MVVM/MVI pattern with a custom Resource wrapper to handle Loading, Success, and Error states consistently.
+This project follows a **feature-based Clean Architecture** approach:
 
-🏗️ Architecture: Clean & Feature-Based
-This project adheres to a Clean Architecture methodology, organized into feature-based modules to ensure high separation of concerns and testability.
+APP (MAIN)
+CORE (DATA, DOMAIN, DESIGN)
+FEATURE (LIST)
 
-|
+### Key Patterns
 
-| Layer | Responsibility | Components |
-| Presentation | Handles UI logic, state management, and user interaction. | Composables, Screens, ViewModel (State, Event, Effect). |
-| Domain | Contains the core business logic, independent of external frameworks. | UseCases, Models, Mappers. |
-| Data | Manages data retrieval from local (Room) and remote (Retrofit) sources. | Repository implementations, DAOs, API Services. |
+- **Single Source of Truth (SSOT)** → Room is the canonical data source; network updates refresh the DB
+- **MVI Pattern**:
+    - **Event** → triggers actions in ViewModel
+    - **State** → represents UI state
+    - **Effect** → one-time events like Snackbars or navigation
+- **Resource Wrapper**: Handles loading, success, and error states consistently
 
-Key Patterns
-Single Source of Truth (SSOT): The Room database is the canonical data source. Network updates are always written to Room, and the UI observes Room for changes.
+---
 
-MVI Pattern:
+## Libraries & Tools 🛠️
 
-Event: User actions or lifecycle events trigger an action in the ViewModel.
+- [Jetpack Compose](https://developer.android.com/jetpack/compose) – UI toolkit
+- [Paging 3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview) – Lazy loading with pagination
+- [Room](https://developer.android.com/training/data-storage/room) – Offline persistence
+- [Retrofit](https://square.github.io/retrofit/) – API calls
+- [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) – Dependency injection
+- [Navigation Compose](https://developer.android.com/jetpack/compose/navigation) – In-app navigation
+- BuildConfig – API key and base URL management
 
-State: Represents the entire UI state at any given moment.
+---
 
-Effect: One-time events (e.g., showing a Snackbar, triggering navigation).
+## How It Works 🚀
 
-🛠️ Libraries & Tools
-| Library | Purpose |
-| Jetpack Compose | Declarative UI toolkit. |
-| Coil | Fast and memory-efficient asynchronous image loading for Compose. |
-| Paging 3 | Handles pagination and efficient lazy data loading. |
-| Room | SQLite abstraction for offline data persistence. |
-| Retrofit | Type-safe HTTP client for API calls. |
-| Hilt | Dependency Injection framework for simplified scoping and lifecycle. |
-| Navigation Compose | Handles in-app navigation between composable destinations. |
-| Kotlin Coroutines | Asynchronous programming and concurrency. |
-| Skeleton (Shimmer) | Implements the skeleton loading UI effect for better UX. |
-| BuildConfig | Secure management of API keys and base URLs. |
+1. **Network + DB Flow**
+    - `Retrofit` fetches data from API
+    - Data is stored in `Room` database
+    - Paging 3 observes Room and emits UI-friendly paging data
 
-🚀 Data Flow Diagram (High Level)
-App Start: The UI requests data from the ViewModel.
+2. **Favorites**
+    - User toggles favorite → updates Room → UI reflects immediately via **local state**
 
-ViewModel: Triggers a Use Case to get movies from the Repository.
+3. **MVI Flow**
+    - User action → Event → ViewModel → State update → Composable recompose → Effect for one-time actions
 
-Repository: Checks the Room DB (SSOT) first.
+4. **Offline-First**
+    - The app continues to display movies from Room when offline
+    - Paging + Room ensures **smooth scrolling** without network dependency
 
-Network Check: If the data is stale or needed for paging, the Repository uses Retrofit to fetch the latest data from the API.
+---
 
-Cache Update: Network data is immediately saved back into the Room DB.
+## Screenshots 📸
 
-UI Update: Paging 3 observes the Room DB and emits fresh PagingData to the UI, which recomposes instantly.
+*(Add your screenshots here)*
 
-⚙️ Setup
-To build and run this application, you must provide your TMDB API key.
+---
 
-Clone the repository:
+## Setup 🔧
 
-git clone [https://github.com/yourusername/moviedemo.git](https://github.com/yourusername/moviedemo.git)
+1. Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/moviedemo.git
 cd moviedemo
+```
 
-
-
-Create local.properties:
-In the root directory of the project, create a file named local.properties.
-
-Add API Configuration:
-Paste the following lines into your local.properties, replacing the placeholders with your actual values:
-
-# Your API Key from The Movie Database (TMDB)
+2. Add your API key and base URL in local.properties:
+```bash
 MOVIE_API_KEY="your_api_key_here"
+MOVIE_BASE_URL="https://api.themoviedb.org/3/"
+```
 
-# Base URL for the TMDB API
-MOVIE_BASE_URL="[https://api.themoviedb.org/3/](https://api.themoviedb.org/3/)"
+3. Build and run the app in Android Studio.
 
+## License
 
-
-Run:
-Open the project in Android Studio and run on an emulator or physical device.
-
-📜 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License – see the LICENSE
+file for details.
