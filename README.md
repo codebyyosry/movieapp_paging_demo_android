@@ -72,6 +72,11 @@ FEATURE (LIST)
 
 ## Screenshots 📸
 
+<p align="center">
+  <img src="screenshots/screenshot_1.png" alt="Home" width="300"/>
+  <img src="screenshots/screenshot_2.png" alt="Favorites" width="300"/>
+  <img src="screenshots/screenshot_3.png" alt="Details" width="300"/>
+</p>
 | ![Loading](screenshots/screenshot_1.png) | ![List](screenshots/screenshot_2.png) | ![Favorites](screenshots/screenshot_3.png) |
 
 
