@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel target="11">
+      <module name="MoviesDemo.app" target="21" />
+      <module name="MoviesDemo.core.data" target="21" />
+      <module name="MoviesDemo.core.designsystem" target="21" />
+      <module name="MoviesDemo.feature.movie-list" target="21" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
